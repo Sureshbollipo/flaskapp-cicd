@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'bollisr/flask-app'
+        IMAGE_NAME = 'bollisr/flask-app'
         APP_SERVER = 'ubuntu@54.204.179.21'
     }
 
@@ -18,7 +18,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build "${DOCKER_IMAGE}:latest"
+                    dockerImage = docker.build "${IMAGE_NAME}:latest"
                 }
             }
         }
