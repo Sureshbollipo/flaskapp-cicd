@@ -107,12 +107,13 @@ sudo usermod -aG docker jenkins
 **Jenkinsfile**
 ```groovy
 /* This is a scripted pipeline in groovy */
+/* This is a scripted pipeline in groovy */
 pipeline {
     agent any
 
     environment {
         IMAGE_NAME = 'bollisr/flask-app'
-        APP_SERVER = 'ubuntu@44.223.23.126'
+        APP_SERVER = 'ubuntu@34.226.141.234'
     }
 
     stages {
@@ -143,20 +144,21 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['app-server-ssh-key']) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no ${APP_SERVER} \
-                        "docker pull ${IMAGE_NAME}:latest && \
-                        docker stop flask-app || true && \
-                        docker rm flask-app || true && \
-                        docker run -d -p 5000:5000 --name flask-app ${IMAGE_NAME}:latest"
-                    """
-                }
+                sh """
+                ssh -o StrictHostKeyChecking=no ${APP_SERVER} \
+                    "docker pull ${IMAGE_NAME}:latest && \
+                    docker stop flask-app || true && \
+                    docker rm flask-app || true && \
+                    docker run -d -p 5000:5000 --name flask-app ${IMAGE_NAME}:latest"
+                """
             }
         }
     }
 }
 ```
+
+* SSH to Jenkins Server, and switch to `jenkins` user, run command `ssh-keygen -t rsa -b 4096 -m PEM` to generate SSH Key and pub
+* Add that pub key to App Server
 
 ### 8. Create Jenkins Pipeline Job
 1. New Item > Pipeline
