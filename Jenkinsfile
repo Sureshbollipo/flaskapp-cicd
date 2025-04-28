@@ -35,15 +35,13 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['app-server-ssh-key']) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no ${APP_SERVER} \
-                        "docker pull ${IMAGE_NAME}:latest && \
-                        docker stop flask-app || true && \
-                        docker rm flask-app || true && \
-                        docker run -d -p 5000:5000 --name flask-app ${IMAGE_NAME}:latest"
-                    """
-                }
+                sh """
+                ssh -o StrictHostKeyChecking=no ${APP_SERVER} \
+                    "docker pull ${IMAGE_NAME}:latest && \
+                    docker stop flask-app || true && \
+                    docker rm flask-app || true && \
+                    docker run -d -p 5000:5000 --name flask-app ${IMAGE_NAME}:latest"
+                """
             }
         }
     }
