@@ -38,10 +38,10 @@ pipeline {
                 sshagent(['app-server-ssh-key']) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ${APP_SERVER} \
-                        "docker pull ${DOCKER_IMAGE}:latest && \
+                        "docker pull ${IMAGE_NAME}:latest && \
                         docker stop flask-app || true && \
                         docker rm flask-app || true && \
-                        docker run -d -p 5000:5000 --name flask-app ${DOCKER_IMAGE}:latest"
+                        docker run -d -p 5000:5000 --name flask-app ${IMAGE_NAME}:latest"
                     """
                 }
             }
