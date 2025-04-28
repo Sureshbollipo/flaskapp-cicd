@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
 **requirements.txt**
 ```
-flask==2.0.1
+flask==3.1.0
 ```
 
 ### 2. Containerize with Docker
