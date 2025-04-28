@@ -112,7 +112,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'bollisr/flask-app'
-        APP_SERVER = 'ubuntu@54.204.179.21'
+        APP_SERVER = 'ubuntu@44.223.23.126'
     }
 
     stages {
